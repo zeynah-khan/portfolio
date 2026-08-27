@@ -1,0 +1,472 @@
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF7FC;
+    --header-bg:#EDE1F5;
+    --primary:#8C5FB0;
+    --primary-hover:#7A4E9D;
+    --primary-dark:#5B3E76;
+    --primary-pale:#F1E6F8;
+    --card:#FFFFFF;
+    --line:#E8E0ED;
+    --text:#2E2438;
+    --text-sub:#7C7089;
+    --text-faint:#AFA5B8;
+    --warm:#E3A374;
+    --warm-pale:#FBEADD;
+    --calm:#7FA37A;
+    --calm-pale:#E4EEE2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#EAE4EF; font-family:'Inter',sans-serif; color:var(--text);
+    display:flex; justify-content:center; padding:40px 16px;
+  }
+  .rig{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .rig-label{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#8A8095; }
+  .phone{
+    width:375px; height:790px; background:#1c1620; border-radius:46px; padding:12px;
+    box-shadow:0 30px 60px -20px rgba(46,36,56,0.45);
+  }
+  .screen-frame{ width:100%; height:100%; background:var(--bg); border-radius:36px; overflow:hidden; position:relative; display:flex; flex-direction:column; }
+  .notch{ position:absolute; top:12px; left:50%; transform:translateX(-50%); width:90px; height:22px; background:#1c1620; border-radius:14px; z-index:10; }
+  .statusbar{ height:40px; flex-shrink:0; display:flex; align-items:center; justify-content:space-between; padding:0 26px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--text); position:relative; z-index:5; }
+  .content{ flex:1; overflow-y:auto; padding-bottom:20px; }
+  .content::-webkit-scrollbar{ display:none; }
+  .screen{ display:none; height:100%; flex-direction:column; }
+  .screen.active{ display:flex; }
+
+  .header-curve{ background:var(--header-bg); padding:6px 24px 26px; border-radius:0 0 32px 32px; }
+  .header-title{ font-family:'Poppins',sans-serif; font-weight:700; font-size:22px; color:var(--primary-dark); text-align:center; margin-top:14px;}
+  .header-sub{ font-size:12.5px; color:var(--text-sub); text-align:center; margin-top:6px; line-height:1.5; padding:0 8px;}
+  .back-row{ display:flex; align-items:center; }
+  .back-btn{ width:32px;height:32px;border-radius:50%; background:rgba(255,255,255,0.6); border:none; display:flex;align-items:center;justify-content:center; cursor:pointer; }
+  .back-btn svg{ width:15px;height:15px; stroke:var(--primary-dark); }
+
+  .step-dots{ display:flex; justify-content:center; gap:6px; margin-top:16px; }
+  .dot{ width:6px;height:6px;border-radius:50%; background:#D9CBE5; }
+  .dot.active{ background:var(--primary); width:16px; border-radius:4px; }
+
+  .body-pad{ padding:22px 22px 100px; }
+
+  .blob{
+    width:150px; height:150px; margin:10px auto 20px;
+    background:linear-gradient(160deg, var(--primary-pale), var(--warm-pale));
+    border-radius:42% 58% 63% 37% / 41% 44% 56% 59%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .blob svg{ width:56px;height:56px; stroke:var(--primary); }
+
+  .choice-list{ display:flex; flex-direction:column; gap:10px; margin-top:18px; }
+  .choice{
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--card); border:1.5px solid var(--line); border-radius:14px; padding:15px 16px;
+    cursor:pointer; font-size:14px; font-weight:600; color:var(--text);
+    transition:all .12s ease;
+  }
+  .choice.selected{ background:var(--primary-pale); border-color:var(--primary); color:var(--primary-dark); }
+  .radio{ width:20px;height:20px;border-radius:50%; border:2px solid var(--line); flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .choice.selected .radio{ background:var(--primary); border-color:var(--primary); }
+  .radio svg{ width:11px;height:11px; stroke:#fff; display:none; }
+  .choice.selected .radio svg{ display:block; }
+
+  .bottom-cta{ position:absolute; bottom:0; left:0; right:0; padding:16px 22px 24px; background:linear-gradient(0deg, var(--bg) 60%, transparent); display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .btn-primary{
+    width:100%; background:var(--primary); color:#fff; border:none; border-radius:14px; padding:15px;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:14px; cursor:pointer;
+  }
+  .btn-primary:disabled{ background:#D9CBE5; cursor:not-allowed; }
+  .btn-primary:active:not(:disabled){ transform:scale(.98); }
+  .skip-link{ font-size:12.5px; color:var(--text-sub); font-weight:600; cursor:pointer; }
+
+  /* -------- home -------- */
+  .home-header{ display:flex; align-items:center; justify-content:space-between; padding:6px 22px 0; }
+  .home-greet{ font-family:'Poppins',sans-serif; font-weight:700; font-size:21px; color:var(--primary-dark); margin-top:8px;}
+  .streak-chip{
+    display:flex; align-items:center; gap:5px; background:var(--warm-pale); color:#9C5A28;
+    padding:6px 11px; border-radius:20px; font-size:11.5px; font-weight:700;
+  }
+  .streak-chip svg{ width:12px;height:12px; }
+
+  .checkin-card{
+    margin:18px 22px 0; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:18px;
+  }
+  .checkin-q{ font-family:'Poppins',sans-serif; font-weight:600; font-size:15.5px; }
+  .checkin-hint{ font-size:12px; color:var(--text-sub); margin-top:4px; line-height:1.5; }
+  .checkin-btn{
+    margin-top:14px; background:var(--primary); color:#fff; border:none; border-radius:12px;
+    padding:12px; width:100%; font-weight:700; font-size:13px; cursor:pointer;
+  }
+
+  .card-simple{ margin:14px 22px 0; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; cursor:pointer; }
+  .card-title{ font-family:'Poppins',sans-serif; font-weight:600; font-size:14.5px; display:flex; align-items:center; justify-content:space-between; }
+  .card-title svg{ width:15px;height:15px; stroke:var(--text-faint); }
+  .card-body{ font-size:12.5px; color:var(--text-sub); margin-top:6px; line-height:1.5; }
+  .tag-soft{ display:inline-block; margin-top:10px; font-size:10.5px; font-weight:700; padding:4px 9px; border-radius:16px; background:var(--calm-pale); color:#4E6B4A; }
+
+  .bottom-nav{
+    position:absolute; bottom:0; left:0; right:0; background:var(--card); border-top:1px solid var(--line);
+    padding:12px 10px 20px; display:flex; justify-content:space-around;
+  }
+  .nav-item{ display:flex; flex-direction:column; align-items:center; gap:4px; color:var(--text-faint); font-size:9.5px; font-weight:700; cursor:pointer; }
+  .nav-item svg{ width:19px;height:19px; stroke:var(--text-faint); }
+  .nav-item.active{ color:var(--primary); }
+  .nav-item.active svg{ stroke:var(--primary); }
+
+  /* -------- log screen -------- */
+  .log-section{ margin:18px 22px 0; }
+  .log-label{ font-family:'Poppins',sans-serif; font-weight:600; font-size:14px; margin-bottom:10px; }
+  .pill-wrap{ display:flex; flex-wrap:wrap; gap:8px; }
+  .pill{
+    padding:9px 14px; border-radius:20px; font-size:12.5px; font-weight:600;
+    background:var(--card); border:1.5px solid var(--line); color:var(--text-sub); cursor:pointer;
+  }
+  .pill.selected{ background:var(--primary-pale); border-color:var(--primary); color:var(--primary-dark); }
+  .notes-box{
+    width:100%; border:1.5px solid var(--line); border-radius:14px; padding:12px; font-family:'Inter',sans-serif;
+    font-size:13px; color:var(--text); resize:none; height:70px; background:var(--card);
+  }
+
+  /* -------- insights -------- */
+  .insight-card{ margin:14px 22px 0; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:17px; }
+  .insight-head{ display:flex; align-items:center; gap:9px; }
+  .insight-icon{ width:32px;height:32px;border-radius:10px; background:var(--primary-pale); display:flex;align-items:center;justify-content:center; flex-shrink:0;}
+  .insight-icon svg{ width:16px;height:16px; stroke:var(--primary); }
+  .insight-title{ font-family:'Poppins',sans-serif; font-weight:600; font-size:13.5px; }
+  .insight-body{ font-size:12.5px; color:var(--text-sub); margin-top:10px; line-height:1.55; }
+  .learn-more{ font-size:12px; font-weight:700; color:var(--primary); margin-top:10px; cursor:pointer; display:inline-block; }
+
+  .empty-insight{ margin:30px 30px 0; text-align:center; color:var(--text-sub); font-size:13px; line-height:1.6; }
+  .empty-insight svg{ width:34px;height:34px; stroke:var(--text-faint); margin-bottom:10px; }
+
+  /* -------- modal -------- */
+  .modal-overlay{
+    position:absolute; inset:0; background:rgba(46,36,56,0.45); display:none; align-items:flex-end; z-index:40;
+  }
+  .modal-overlay.open{ display:flex; }
+  .modal-sheet{
+    background:var(--card); width:100%; border-radius:24px 24px 0 0; padding:22px; max-height:70%; overflow-y:auto;
+  }
+  .modal-title{ font-family:'Poppins',sans-serif; font-weight:700; font-size:16px; color:var(--primary-dark); }
+  .modal-body{ font-size:13px; color:var(--text-sub); line-height:1.7; margin-top:10px; }
+  .modal-close{
+    margin-top:18px; width:100%; background:var(--primary-pale); color:var(--primary-dark); border:none;
+    border-radius:12px; padding:12px; font-weight:700; font-size:13px; cursor:pointer;
+  }
+
+  .toast{
+    position:absolute; bottom:100px; left:20px; right:20px; background:var(--primary-dark); color:#fff;
+    padding:12px 16px; border-radius:12px; font-size:12.5px; font-weight:600; text-align:center;
+    opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease; transform:translateY(6px); z-index:30;
+  }
+  .toast.show{ opacity:1; transform:translateY(0); }
+  .caption{ max-width:375px; text-align:center; font-size:12px; color:#8A8095; line-height:1.5; }
+</style>
+
+<div class="rig">
+  <div class="rig-label">Hormone+ — interactive prototype (intended vision)</div>
+  <div class="phone">
+    <div class="screen-frame">
+      <div class="notch"></div>
+
+      <!-- WELCOME -->
+      <div class="screen active" id="screen-welcome">
+        <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="content">
+          <div class="body-pad" style="padding-top:40px; text-align:center;">
+            <div class="blob"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg></div>
+            <div class="header-title" style="margin-top:4px;">Welcome to Hormone+</div>
+            <div class="header-sub" style="margin-top:10px;">A hormonal health space designed for reflection and understanding — not just cycle prediction.</div>
+            <div class="choice-list" style="text-align:left; margin-top:26px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--calm-pale);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;"><svg viewBox="0 0 24 24" fill="none" stroke="#4E6B4A" stroke-width="2.5" style="width:11px;height:11px;"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div style="font-size:13px; color:var(--text-sub);">Not fertility-focused by default</div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--calm-pale);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;"><svg viewBox="0 0 24 24" fill="none" stroke="#4E6B4A" stroke-width="2.5" style="width:11px;height:11px;"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div style="font-size:13px; color:var(--text-sub);">Supports menopause, PCOS, PMDD and more</div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <div style="width:20px;height:20px;border-radius:50%;background:var(--calm-pale);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;"><svg viewBox="0 0 24 24" fill="none" stroke="#4E6B4A" stroke-width="2.5" style="width:11px;height:11px;"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div style="font-size:13px; color:var(--text-sub);">You control what you share, always</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-cta" style="position:relative; padding-top:0;">
+          <button class="btn-primary" onclick="showScreen('focus')">Get started</button>
+        </div>
+      </div>
+
+      <!-- FOCUS -->
+      <div class="screen" id="screen-focus">
+        <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="content">
+          <div class="header-curve">
+            <div class="header-title">What best describes you?</div>
+            <div class="header-sub">Choose what feels relevant — you can always change this later.</div>
+            <div class="step-dots"><div class="dot active"></div><div class="dot"></div></div>
+          </div>
+          <div class="body-pad">
+            <div class="choice-list" id="focus-list">
+              <div class="choice" data-val="Perimenopause" onclick="toggleChoice(this,'focus')"><span>Perimenopause</span><div class="radio"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div></div>
+              <div class="choice" data-val="Menopause" onclick="toggleChoice(this,'focus')"><span>Menopause</span><div class="radio"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div></div>
+              <div class="choice" data-val="Irregular or unpredictable cycles" onclick="toggleChoice(this,'focus')"><span>Irregular or unpredictable cycles</span><div class="radio"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div></div>
+              <div class="choice" data-val="PCOS, PMDD, or another diagnosed condition" onclick="toggleChoice(this,'focus')"><span>PCOS, PMDD, or another diagnosed condition</span><div class="radio"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div></div>
+              <div class="choice" data-val="I'm not sure" onclick="toggleChoice(this,'focus')"><span>I'm not sure</span><div class="radio"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-cta">
+          <button class="btn-primary" onclick="showScreen('goals')">Next</button>
+          <div class="skip-link" onclick="showScreen('goals')">Skip for now</div>
+        </div>
+      </div>
+
+      <!-- GOALS -->
+      <div class="screen" id="screen-goals">
+        <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="content">
+          <div class="header-curve">
+            <div class="back-row"><button class="back-btn" onclick="showScreen('focus')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg></button></div>
+            <div class="header-title">What would you like support with?</div>
+            <div class="header-sub">Select as many as apply — this shapes what you see first.</div>
+            <div class="step-dots"><div class="dot"></div><div class="dot active"></div></div>
+          </div>
+          <div class="body-pad">
+            <div class="choice-list" id="goals-list">
+              <div class="choice" data-val="Understanding symptoms and patterns" onclick="toggleChoice(this,'goals')"><span>Understanding symptoms and patterns</span><div class="radio"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div></div>
+              <div class="choice" data-val="Managing mood and energy" onclick="toggleChoice(this,'goals')"><span>Managing mood and energy</span><div class="radio"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div></div>
+              <div class="choice" data-val="Making sense of irregular cycles" onclick="toggleChoice(this,'goals')"><span>Making sense of irregular cycles</span><div class="radio"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div></div>
+              <div class="choice" data-val="Learning more about my health" onclick="toggleChoice(this,'goals')"><span>Learning more about my health</span><div class="radio"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div></div>
+              <div class="choice" data-val="Preparing for medical appointments" onclick="toggleChoice(this,'goals')"><span>Preparing for medical appointments</span><div class="radio"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-cta">
+          <button class="btn-primary" onclick="finishSetup()">Finish setup</button>
+          <div class="skip-link" onclick="finishSetup()">Skip for now</div>
+        </div>
+      </div>
+
+      <!-- HOME -->
+      <div class="screen" id="screen-home">
+        <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="content">
+          <div class="home-header">
+            <div><div class="home-greet">Hello!</div></div>
+            <div class="streak-chip"><svg viewBox="0 0 24 24" fill="none" stroke="#9C5A28" stroke-width="2"><path d="M12 2c-4 3-6 7-6 10a6 6 0 0012 0c0-3-2-7-6-10z"/></svg>3-day streak</div>
+          </div>
+
+          <div class="checkin-card">
+            <div class="checkin-q">How are you feeling today?</div>
+            <div class="checkin-hint">Check in with your symptoms, mood, and energy — no pressure, just a moment for you.</div>
+            <button class="checkin-btn" onclick="showScreen('log')">Log your symptoms</button>
+          </div>
+
+          <div class="card-simple" onclick="showScreen('insights')" id="home-insights-card">
+            <div class="card-title">Your insights <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+            <div class="card-body" id="home-insights-text">No entries yet — once you log something, gentle patterns will start to appear here.</div>
+          </div>
+
+          <div class="card-simple" onclick="toast('Opens your recommended reading')">
+            <div class="card-title">Recommended for you <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+            <div class="card-body">Based on what you told us, here's where we'd start.</div>
+            <div class="tag-soft" id="home-tag">Getting to know you</div>
+          </div>
+        </div>
+        <div class="bottom-nav">
+          <div class="nav-item active" onclick="showScreen('home')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 11l8-7 8 7M6 10v9h12v-9"/></svg>Home</div>
+          <div class="nav-item" onclick="toast('Opens your calendar view')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>Calendar</div>
+          <div class="nav-item" onclick="showScreen('log')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>Log</div>
+          <div class="nav-item" onclick="showScreen('insights')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 19h4v-6H4v6zM10 19h4V9h-4v10zM16 19h4V4h-4v15z"/></svg>Insights</div>
+          <div class="nav-item" onclick="toast('Opens your profile')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-4 5-5 7-5s5.5 1 7 5"/></svg>Profile</div>
+        </div>
+      </div>
+
+      <!-- LOG -->
+      <div class="screen" id="screen-log">
+        <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="content">
+          <div class="header-curve" style="padding-bottom:18px;">
+            <div class="back-row"><button class="back-btn" onclick="showScreen('home')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg></button></div>
+            <div class="header-title" style="margin-top:8px;">Log symptoms</div>
+            <div class="header-sub">Record how you're feeling today across a few key areas.</div>
+          </div>
+
+          <div class="log-section">
+            <div class="log-label">Mood &amp; mind</div>
+            <div class="pill-wrap" id="mood-pills">
+              <div class="pill" onclick="togglePill(this)">Low</div>
+              <div class="pill" onclick="togglePill(this)">Fine</div>
+              <div class="pill" onclick="togglePill(this)">Mood swings</div>
+              <div class="pill" onclick="togglePill(this)">Anxious</div>
+              <div class="pill" onclick="togglePill(this)">Irritable</div>
+              <div class="pill" onclick="togglePill(this)">Overwhelmed</div>
+            </div>
+          </div>
+
+          <div class="log-section">
+            <div class="log-label">Concentration</div>
+            <div class="pill-wrap" id="focus-pills">
+              <div class="pill" onclick="togglePill(this)">Clear-headed</div>
+              <div class="pill" onclick="togglePill(this)">Brain fog</div>
+              <div class="pill" onclick="togglePill(this)">Forgetful</div>
+              <div class="pill" onclick="togglePill(this)">Difficulty focusing</div>
+            </div>
+          </div>
+
+          <div class="log-section">
+            <div class="log-label">Body</div>
+            <div class="pill-wrap" id="body-pills">
+              <div class="pill" onclick="togglePill(this)">Hot flushes</div>
+              <div class="pill" onclick="togglePill(this)">Fatigue</div>
+              <div class="pill" onclick="togglePill(this)">Sleep disrupted</div>
+              <div class="pill" onclick="togglePill(this)">Cramping</div>
+              <div class="pill" onclick="togglePill(this)">Headache</div>
+            </div>
+          </div>
+
+          <div class="log-section">
+            <div class="log-label">Notes <span style="font-weight:400;color:var(--text-faint);">(optional)</span></div>
+            <textarea class="notes-box" placeholder="Anything you'd like to remember about today..."></textarea>
+          </div>
+
+          <div style="height:90px;"></div>
+        </div>
+        <div class="bottom-cta">
+          <button class="btn-primary" onclick="saveLog()">Save</button>
+        </div>
+      </div>
+
+      <!-- INSIGHTS -->
+      <div class="screen" id="screen-insights">
+        <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+        <div class="content">
+          <div class="header-curve">
+            <div class="back-row"><button class="back-btn" onclick="showScreen('home')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg></button></div>
+            <div class="header-title">Your insights</div>
+            <div class="header-sub">Reflections based on what you've logged — not predictions.</div>
+          </div>
+          <div id="insights-content"></div>
+        </div>
+        <div class="bottom-nav">
+          <div class="nav-item" onclick="showScreen('home')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 11l8-7 8 7M6 10v9h12v-9"/></svg>Home</div>
+          <div class="nav-item" onclick="toast('Opens your calendar view')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>Calendar</div>
+          <div class="nav-item" onclick="showScreen('log')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>Log</div>
+          <div class="nav-item active" onclick="showScreen('insights')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 19h4v-6H4v6zM10 19h4V9h-4v10zM16 19h4V4h-4v15z"/></svg>Insights</div>
+          <div class="nav-item" onclick="toast('Opens your profile')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-4 5-5 7-5s5.5 1 7 5"/></svg>Profile</div>
+        </div>
+      </div>
+
+      <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-sheet" onclick="event.stopPropagation()">
+          <div class="modal-title" id="modal-title">Brain fog &amp; hormonal change</div>
+          <div class="modal-body" id="modal-body">Cognitive symptoms like brain fog and forgetfulness are commonly linked to hormonal fluctuations, particularly during perimenopause and with conditions like PCOS and PMDD — but they're rarely discussed alongside physical symptoms. Logging when they happen can help you notice patterns worth raising with a healthcare provider, without framing it as something being "wrong."</div>
+          <button class="modal-close" onclick="closeModal()">Close</button>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"></div>
+    </div>
+  </div>
+  <div class="caption">Select a focus and goals, then log symptoms to see Home and Insights adapt — the way FR3 and FR4 describe.</div>
+</div>
+
+<script>
+  let selectedFocus = [];
+  let selectedGoals = [];
+  let hasLogged = false;
+
+  function showScreen(name){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById('screen-'+name).classList.add('active');
+  }
+
+  function toggleChoice(el, type){
+    el.classList.toggle('selected');
+    const val = el.dataset.val;
+    const arr = type==='focus' ? selectedFocus : selectedGoals;
+    const idx = arr.indexOf(val);
+    if(idx>-1) arr.splice(idx,1); else arr.push(val);
+  }
+
+  function finishSetup(){
+    const tagEl = document.getElementById('home-tag');
+    if(selectedGoals.length){
+      tagEl.textContent = selectedGoals[0];
+    } else if(selectedFocus.length){
+      tagEl.textContent = selectedFocus[0];
+    } else {
+      tagEl.textContent = 'Getting to know you';
+    }
+    toast(selectedFocus.length || selectedGoals.length ? 'Your experience is personalised' : 'Setup skipped — you can adjust this anytime');
+    showScreen('home');
+  }
+
+  function togglePill(el){ el.classList.toggle('selected'); }
+
+  function saveLog(){
+    const selected = document.querySelectorAll('#screen-log .pill.selected');
+    hasLogged = true;
+    document.getElementById('home-insights-text').textContent =
+      selected.length ? "Based on today's check-in, here's a gentle summary of what you logged." : 'Logged — even a quick note helps build a clearer picture over time.';
+    toast('Log saved');
+    showScreen('home');
+    renderInsights();
+  }
+
+  function renderInsights(){
+    const el = document.getElementById('insights-content');
+    if(!hasLogged){
+      el.innerHTML = `<div class="empty-insight">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <div>Nothing logged yet. Once you check in a few times, gentle patterns will start to appear here — no pressure.</div>
+      </div>`;
+      return;
+    }
+    el.innerHTML = `
+      <div class="insight-card">
+        <div class="insight-head">
+          <div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2c-4 3-6 7-6 10a6 6 0 0012 0c0-3-2-7-6-10z"/></svg></div>
+          <div class="insight-title">Mood &amp; concentration, this week</div>
+        </div>
+        <div class="insight-body">You've logged mood swings and brain fog together more than once this week. This pairing is common and doesn't necessarily mean anything is wrong — some people find it useful to mention to a healthcare provider.</div>
+        <div class="learn-more" onclick="openBrainFogModal()">Learn more →</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-head">
+          <div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div class="insight-title">A note on tracking</div>
+        </div>
+        <div class="insight-body">You're not being measured against a "regular" cycle here — these reflections are about your own patterns over time, at whatever pace makes sense for you.</div>
+      </div>
+    `;
+  }
+
+  function openModal(title, body){
+    document.getElementById('modal-title').innerHTML = title;
+    document.getElementById('modal-body').innerHTML = body;
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+  function openBrainFogModal(){
+    const body = "Cognitive symptoms like brain fog and forgetfulness are commonly linked to hormonal fluctuations, particularly during perimenopause and with conditions like PCOS and PMDD — but they're rarely discussed alongside physical symptoms. Logging when they happen can help you notice patterns worth raising with a healthcare provider, without framing it as something being \"wrong.\"";
+    openModal('Brain fog &amp; hormonal change', body);
+  }
+  function closeModal(ev){
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+
+  let toastTimer;
+  function toast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>t.classList.remove('show'), 2200);
+  }
+
+  renderInsights();
+</script>

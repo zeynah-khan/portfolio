@@ -1,0 +1,644 @@
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500;1,9..144,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EC;
+    --cream-card:#F4EEDD;
+    --sage-deep:#3E5A29;
+    --sage-mid:#6C8A45;
+    --sage-pale:#E3E9CE;
+    --charcoal:#2A2A20;
+    --charcoal-soft:#5B5A4C;
+    --gold:#C0902F;
+    --gold-pale:#F3E3C0;
+    --berry:#9C3F35;
+    --berry-pale:#EFD9D3;
+    --fresh:#5C7F3C;
+    --fresh-pale:#DCE7C9;
+    --line:#DDD5BF;
+    --radius-lg:22px;
+    --radius-md:16px;
+    --radius-sm:10px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:#EAE4D3;
+    font-family:'Public Sans',sans-serif;
+    color:var(--charcoal);
+    display:flex;
+    justify-content:center;
+    padding:40px 16px;
+  }
+  .rig{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+  }
+  .rig-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#8A8368;
+  }
+  .phone{
+    width:375px;
+    height:790px;
+    background:var(--charcoal);
+    border-radius:46px;
+    padding:12px;
+    box-shadow:0 30px 60px -20px rgba(42,42,32,0.45), 0 0 0 1px rgba(42,42,32,0.08);
+  }
+  .screen-frame{
+    width:100%;
+    height:100%;
+    background:var(--cream);
+    border-radius:36px;
+    overflow:hidden;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+  }
+  .statusbar{
+    height:40px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 26px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--charcoal);
+    background:transparent;
+    position:relative;
+    z-index:5;
+  }
+  .statusbar .icons{display:flex; gap:5px; align-items:center;}
+  .notch{
+    position:absolute; top:12px; left:50%; transform:translateX(-50%);
+    width:90px; height:22px; background:var(--charcoal); border-radius:14px; z-index:10;
+  }
+  .content{
+    flex:1;
+    overflow-y:auto;
+    padding-bottom:96px;
+  }
+  .content::-webkit-scrollbar{display:none;}
+  .screen{ display:none; height:100%; flex-direction:column; }
+  .screen.active{ display:flex; }
+
+  /* ---------- header ---------- */
+  .top-header{
+    background:var(--sage-deep);
+    color:var(--cream);
+    padding:6px 22px 22px;
+    border-radius:0 0 26px 26px;
+  }
+  .brand-row{
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:26px;
+    letter-spacing:.01em;
+  }
+  .greet{
+    font-size:13px;
+    color:#D9E3C6;
+    margin-top:2px;
+  }
+  .avatar{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--gold-pale);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif; font-weight:600; color:var(--sage-deep); font-size:14px;
+  }
+  .subheader-row{
+    display:flex; align-items:center; gap:10px; margin-top:16px;
+  }
+  .back-btn{
+    width:34px;height:34px;border-radius:50%;
+    background:rgba(255,255,255,0.14);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer; border:none; flex-shrink:0;
+  }
+  .back-btn svg{width:16px;height:16px;stroke:var(--cream);}
+  .page-title{
+    font-family:'Fraunces',serif; font-weight:600; font-size:20px;
+  }
+  .page-sub{
+    font-size:12.5px; color:#D9E3C6; margin-top:2px;
+  }
+
+  /* ---------- section labels ---------- */
+  .section{ padding:20px 20px 4px; }
+  .section-label{
+    display:flex; align-items:center; gap:7px;
+    font-family:'Fraunces',serif; font-weight:600; font-size:16.5px;
+    color:var(--charcoal);
+    margin-bottom:12px;
+  }
+  .section-label svg{width:16px;height:16px;stroke:var(--sage-deep);}
+
+  /* ---------- cards ---------- */
+  .greeting-card{
+    margin:18px 20px 0;
+    background:var(--cream-card);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:14px 16px;
+    font-size:13.5px;
+    color:var(--charcoal-soft);
+    display:flex; align-items:center; gap:10px;
+  }
+  .quick-actions{
+    display:flex; gap:10px; padding:16px 20px 4px;
+  }
+  .qa-card{
+    flex:1;
+    background:var(--cream-card);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:14px 8px 12px;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .qa-card:active{ transform:scale(.96); }
+  .qa-icon{
+    width:38px;height:38px;border-radius:12px;
+    background:var(--sage-pale);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .qa-icon svg{width:18px;height:18px;stroke:var(--sage-deep);}
+  .qa-label{ font-size:11.5px; font-weight:600; text-align:center; color:var(--charcoal); }
+
+  .item-card{
+    display:flex; align-items:center; gap:12px;
+    background:var(--cream-card);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:12px 14px;
+    margin-bottom:10px;
+  }
+  .leaf-badge{
+    width:34px;height:34px;flex-shrink:0;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .leaf-badge.fresh{ background:var(--fresh-pale); }
+  .leaf-badge.soon{ background:var(--gold-pale); }
+  .leaf-badge.urgent{ background:var(--berry-pale); }
+  .leaf-badge svg{ width:17px; height:17px; }
+  .leaf-badge.fresh svg{ stroke:var(--fresh); }
+  .leaf-badge.soon svg{ stroke:var(--gold); }
+  .leaf-badge.urgent svg{ stroke:var(--berry); }
+
+  .item-main{ flex:1; min-width:0; }
+  .item-name{ font-size:14px; font-weight:600; color:var(--charcoal); }
+  .item-meta{ font-size:11.5px; color:var(--charcoal-soft); margin-top:1px; }
+  .item-time{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:500;
+  }
+  .item-time.urgent{ color:var(--berry); }
+  .item-time.soon{ color:var(--gold); }
+  .item-time.fresh{ color:var(--fresh); }
+
+  .meal-card{
+    display:flex; gap:12px; align-items:center;
+    background:var(--cream-card); border:1px solid var(--line);
+    border-radius:var(--radius-md); padding:10px; margin-bottom:10px;
+    cursor:pointer;
+  }
+  .meal-thumb{
+    width:52px;height:52px;border-radius:12px;flex-shrink:0;
+    background:linear-gradient(135deg,var(--sage-pale),var(--gold-pale));
+    display:flex;align-items:center;justify-content:center;
+  }
+  .meal-thumb svg{ width:22px;height:22px;stroke:var(--sage-deep); }
+  .meal-name{ font-size:13.5px; font-weight:600; }
+  .meal-meta{ font-size:11px; color:var(--charcoal-soft); margin-top:2px;}
+  .tag-row{ display:flex; gap:6px; margin-top:6px; }
+  .tag{
+    font-size:10px; font-weight:600; padding:3px 8px; border-radius:20px;
+    background:var(--sage-pale); color:var(--sage-deep);
+  }
+  .tag.cost{ background:var(--gold-pale); color:#8A6420; }
+
+  /* ---------- ingredient chips (cook screen) ---------- */
+  .chip-field{
+    margin:18px 20px 0;
+    background:var(--cream-card); border:1px solid var(--line);
+    border-radius:var(--radius-md); padding:14px;
+  }
+  .chip-field-head{
+    display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;
+  }
+  .chip-field-head span{ font-size:13px; font-weight:600; }
+  .clear-link{ font-size:11.5px; color:var(--charcoal-soft); cursor:pointer; }
+  .chips-wrap{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    padding:7px 13px; border-radius:20px; font-size:12.5px; font-weight:500;
+    border:1.4px solid var(--line); background:var(--cream);
+    cursor:pointer; user-select:none; transition:all .12s ease;
+  }
+  .chip.selected{
+    background:var(--sage-deep); border-color:var(--sage-deep); color:var(--cream);
+  }
+  .filter-row{ display:flex; gap:8px; padding:14px 20px 0; }
+  .filter-chip{
+    padding:7px 12px; border-radius:20px; font-size:12px; font-weight:600;
+    border:1.4px solid var(--line); background:var(--cream-card); color:var(--charcoal-soft);
+  }
+  .find-btn{
+    margin:16px 20px 0;
+    background:var(--sage-deep); color:var(--cream);
+    border:none; border-radius:14px; padding:14px; width:calc(100% - 40px);
+    font-family:'Public Sans',sans-serif; font-weight:700; font-size:14px;
+    cursor:pointer;
+  }
+  .find-btn:active{ transform:scale(.98); }
+  .empty-state{
+    margin:20px 20px 0; text-align:center; padding:30px 10px;
+    color:var(--charcoal-soft); font-size:13px;
+  }
+  .empty-state svg{ width:30px;height:30px;stroke:var(--line); margin-bottom:8px; }
+
+  .recipe-card{
+    display:flex; gap:12px; background:var(--cream-card); border:1px solid var(--line);
+    border-radius:var(--radius-md); padding:12px; margin-bottom:10px; cursor:pointer;
+  }
+  .recipe-thumb{
+    width:64px;height:64px;border-radius:12px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .recipe-thumb svg{width:26px;height:26px;stroke:var(--sage-deep);}
+
+  /* ---------- recipe detail ---------- */
+  .hero{
+    height:170px; flex-shrink:0;
+    background:linear-gradient(160deg,var(--sage-pale) 0%, var(--gold-pale) 100%);
+    display:flex; align-items:flex-end; padding:18px 20px;
+    position:relative;
+  }
+  .hero-title{ font-family:'Fraunces',serif; font-weight:600; font-size:23px; color:var(--charcoal); }
+  .meta-strip{
+    display:flex; padding:14px 20px 6px; gap:10px;
+  }
+  .meta-pill{
+    flex:1; background:var(--cream-card); border:1px solid var(--line); border-radius:var(--radius-sm);
+    padding:9px 6px; text-align:center;
+  }
+  .meta-pill .val{ font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:13.5px; }
+  .meta-pill .lab{ font-size:9.5px; color:var(--charcoal-soft); text-transform:uppercase; letter-spacing:.04em; margin-top:2px;}
+  .ing-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:11px 0; border-bottom:1px solid var(--line);
+  }
+  .ing-row:last-child{ border-bottom:none; }
+  .ing-name{ font-size:13.5px; }
+  .have-tag{
+    font-size:10px; font-weight:700; color:var(--fresh); background:var(--fresh-pale);
+    padding:3px 8px; border-radius:20px;
+  }
+  .step-item{ display:flex; gap:12px; margin-bottom:14px; }
+  .step-num{
+    width:24px;height:24px;border-radius:50%; background:var(--sage-deep); color:var(--cream);
+    flex-shrink:0; font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:500;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .step-text{ font-size:13px; color:var(--charcoal-soft); line-height:1.5; padding-top:2px; }
+  .cook-btn{
+    margin:18px 20px 4px;
+    background:var(--sage-deep); color:var(--cream); border:none; border-radius:14px;
+    padding:15px; width:calc(100% - 40px); font-weight:700; font-size:14px; cursor:pointer;
+  }
+
+  /* ---------- pantry ---------- */
+  .legend{
+    display:flex; gap:14px; padding:14px 20px 0; flex-wrap:wrap;
+  }
+  .legend-item{ display:flex; align-items:center; gap:5px; font-size:11px; color:var(--charcoal-soft); }
+  .legend-dot{ width:9px;height:9px;border-radius:3px; }
+  .legend-dot.fresh{ background:var(--fresh); }
+  .legend-dot.soon{ background:var(--gold); }
+  .legend-dot.urgent{ background:var(--berry); }
+  .add-item-btn{
+    margin:14px 20px 4px;
+    border:1.4px dashed var(--sage-mid); color:var(--sage-deep); background:transparent;
+    border-radius:14px; padding:12px; width:calc(100% - 40px); font-weight:700; font-size:13px;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+
+  /* ---------- bottom nav ---------- */
+  .bottom-nav{
+    position:absolute; bottom:0; left:0; right:0;
+    background:var(--sage-deep);
+    padding:14px 26px 20px;
+    display:flex; justify-content:space-between; align-items:center;
+    border-radius:26px 26px 0 0;
+  }
+  .nav-item{
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    color:#B9C79E; cursor:pointer; font-size:9.5px; font-weight:600;
+    width:44px;
+  }
+  .nav-item svg{ width:19px;height:19px; stroke:#B9C79E; }
+  .nav-item.active{ color:var(--cream); }
+  .nav-item.active svg{ stroke:var(--cream); }
+  .nav-fab{
+    width:46px;height:46px;border-radius:50%;
+    background:var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    margin-top:-26px;
+    box-shadow:0 8px 16px -6px rgba(0,0,0,0.35);
+    cursor:pointer;
+  }
+  .nav-fab svg{ width:20px;height:20px; stroke:var(--charcoal); }
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:absolute; bottom:100px; left:20px; right:20px;
+    background:var(--charcoal); color:var(--cream);
+    padding:12px 16px; border-radius:12px; font-size:12.5px; font-weight:500;
+    text-align:center; opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease;
+    transform:translateY(6px);
+    z-index:30;
+  }
+  .toast.show{ opacity:1; transform:translateY(0); }
+
+  .caption{
+    max-width:375px; text-align:center; font-size:12px; color:#8A8368; line-height:1.5;
+  }
+</style>
+
+<div class="rig">
+  <div class="rig-label">Chewsy — interactive prototype</div>
+  <div class="phone">
+    <div class="screen-frame">
+      <div class="notch"></div>
+
+      <!-- ============ HOME ============ -->
+      <div class="screen active" id="screen-home">
+        <div class="statusbar"><span>9:41</span><span class="icons">●●●</span></div>
+        <div class="content">
+          <div class="top-header">
+            <div class="brand-row">
+              <div>
+                <div class="brand">Chewsy</div>
+                <div class="greet">Hi Zara 👋</div>
+              </div>
+              <div class="avatar">Z</div>
+            </div>
+          </div>
+
+          <div class="greeting-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--sage-deep)" stroke-width="1.8" style="width:20px;height:20px;flex-shrink:0;"><path d="M12 2c-4 3-6 7-6 10a6 6 0 0012 0c0-3-2-7-6-10z"/></svg>
+            Ready to save some food today? 3 items need using up soon.
+          </div>
+
+          <div class="quick-actions">
+            <div class="qa-card" onclick="showScreen('cook')">
+              <div class="qa-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+              <div class="qa-label">What to Cook</div>
+            </div>
+            <div class="qa-card" onclick="showScreen('pantry')">
+              <div class="qa-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3c-4 3.2-6.5 7-6.5 10.2A6.5 6.5 0 0012 20a6.5 6.5 0 006.5-6.8C18.5 10 16 6.2 12 3z"/></svg></div>
+              <div class="qa-label">Pantry</div>
+            </div>
+            <div class="qa-card" onclick="toast('Budget tracker — coming in the next iteration')">
+              <div class="qa-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h3"/></svg></div>
+              <div class="qa-label">Budget</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              Expiring soon
+            </div>
+            <div class="item-card">
+              <div class="leaf-badge urgent"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12c6-8 12-8 16-8-1 6-3 11-9 12-3 .5-6-1-7-4z"/><path d="M4 20c2-4 5-7 9-9"/></svg></div>
+              <div class="item-main"><div class="item-name">Pepper</div><div class="item-meta">Qty 2</div></div>
+              <div class="item-time urgent">1 day left</div>
+            </div>
+            <div class="item-card">
+              <div class="leaf-badge urgent"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12c6-8 12-8 16-8-1 6-3 11-9 12-3 .5-6-1-7-4z"/><path d="M4 20c2-4 5-7 9-9"/></svg></div>
+              <div class="item-main"><div class="item-name">Chicken breast</div><div class="item-meta">Qty 2</div></div>
+              <div class="item-time urgent">2 days left</div>
+            </div>
+            <div class="item-card">
+              <div class="leaf-badge soon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12c6-8 12-8 16-8-1 6-3 11-9 12-3 .5-6-1-7-4z"/><path d="M4 20c2-4 5-7 9-9"/></svg></div>
+              <div class="item-main"><div class="item-name">Egg</div><div class="item-meta">Qty 4</div></div>
+              <div class="item-time soon">4 days left</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 19h16M4 15h16M6 11h12M8 7h8"/></svg>
+              Recent meals
+            </div>
+            <div class="meal-card" onclick="openRecipe('omelette')">
+              <div class="meal-thumb"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg></div>
+              <div>
+                <div class="meal-name">Avocado omelette</div>
+                <div class="meal-meta">Prep 10 min · Cook 10 min</div>
+                <div class="tag-row"><span class="tag">Vegetarian</span><span class="tag cost">£1.10 / meal</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-nav" id="nav-home"></div>
+      </div>
+
+      <!-- ============ COOK / WHAT CAN I COOK ============ -->
+      <div class="screen" id="screen-cook">
+        <div class="statusbar"><span>9:41</span><span class="icons">●●●</span></div>
+        <div class="content">
+          <div class="top-header">
+            <div class="subheader-row">
+              <button class="back-btn" onclick="showScreen('home')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+              <div><div class="page-title">What can I cook?</div><div class="page-sub">Tap what you've got — Chewsy does the rest</div></div>
+            </div>
+          </div>
+
+          <div class="chip-field">
+            <div class="chip-field-head"><span>Your ingredients</span><span class="clear-link" onclick="clearChips()">Clear</span></div>
+            <div class="chips-wrap" id="chip-wrap">
+              <div class="chip" data-ing="Chicken breast" onclick="toggleChip(this)">Chicken breast</div>
+              <div class="chip" data-ing="Pepper" onclick="toggleChip(this)">Pepper</div>
+              <div class="chip" data-ing="Egg" onclick="toggleChip(this)">Egg</div>
+              <div class="chip" data-ing="Spinach" onclick="toggleChip(this)">Spinach</div>
+              <div class="chip" data-ing="Rice" onclick="toggleChip(this)">Rice</div>
+              <div class="chip" data-ing="Cheddar" onclick="toggleChip(this)">Cheddar</div>
+              <div class="chip" data-ing="+ Add item" onclick="toast('Add a custom ingredient')">+ Add item</div>
+            </div>
+          </div>
+
+          <div class="filter-row">
+            <div class="filter-chip">Duration ▾</div>
+            <div class="filter-chip">Dietary ▾</div>
+            <div class="filter-chip">Budget ▾</div>
+          </div>
+
+          <button class="find-btn" onclick="findRecipes()">Find recipes</button>
+
+          <div id="cook-results"></div>
+        </div>
+        <div class="bottom-nav" id="nav-cook"></div>
+      </div>
+
+      <!-- ============ RECIPE DETAIL ============ -->
+      <div class="screen" id="screen-detail">
+        <div class="statusbar"><span>9:41</span><span class="icons">●●●</span></div>
+        <div class="content" style="padding-bottom:110px;">
+          <div class="hero">
+            <button class="back-btn" style="position:absolute; top:16px; left:16px; background:rgba(255,255,255,0.5);" onclick="showScreen('cook')"><svg viewBox="0 0 24 24" fill="none" stroke="var(--charcoal)" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="hero-title" id="detail-title">Pepper &amp; Chicken Stir-fry</div>
+          </div>
+          <div class="meta-strip">
+            <div class="meta-pill"><div class="val">10m</div><div class="lab">Prep</div></div>
+            <div class="meta-pill"><div class="val">15m</div><div class="lab">Cook</div></div>
+            <div class="meta-pill"><div class="val">£1.85</div><div class="lab">Per meal</div></div>
+            <div class="meta-pill"><div class="val">2</div><div class="lab">Servings</div></div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">Ingredients</div>
+            <div class="ing-row"><span class="ing-name">Chicken breast, sliced</span><span class="have-tag">In pantry</span></div>
+            <div class="ing-row"><span class="ing-name">Pepper, sliced</span><span class="have-tag">In pantry</span></div>
+            <div class="ing-row"><span class="ing-name">Soy sauce, 1 tbsp</span><span class="item-meta">Pantry staple</span></div>
+            <div class="ing-row"><span class="ing-name">Rice, cooked</span><span class="have-tag">In pantry</span></div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">Steps</div>
+            <div class="step-item"><div class="step-num">1</div><div class="step-text">Slice the chicken and pepper into thin, even strips.</div></div>
+            <div class="step-item"><div class="step-num">2</div><div class="step-text">Fry the chicken over high heat for 5–6 minutes until cooked through.</div></div>
+            <div class="step-item"><div class="step-num">3</div><div class="step-text">Add the pepper and soy sauce, cook for 3 more minutes.</div></div>
+            <div class="step-item"><div class="step-num">4</div><div class="step-text">Serve over rice. Refrigerate leftovers within 2 hours.</div></div>
+          </div>
+
+          <button class="cook-btn" onclick="toast('Marked as cooked — nice one 🎉')">Mark as cooked</button>
+        </div>
+      </div>
+
+      <!-- ============ PANTRY ============ -->
+      <div class="screen" id="screen-pantry">
+        <div class="statusbar"><span>9:41</span><span class="icons">●●●</span></div>
+        <div class="content">
+          <div class="top-header">
+            <div class="subheader-row">
+              <button class="back-btn" onclick="showScreen('home')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+              <div><div class="page-title">Pantry tracker</div><div class="page-sub">See what's about to expire</div></div>
+            </div>
+          </div>
+
+          <div class="legend">
+            <div class="legend-item"><div class="legend-dot urgent"></div>Use now</div>
+            <div class="legend-item"><div class="legend-dot soon"></div>Use soon</div>
+            <div class="legend-item"><div class="legend-dot fresh"></div>Still fresh</div>
+          </div>
+
+          <div class="section">
+            <div class="item-card"><div class="leaf-badge urgent"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12c6-8 12-8 16-8-1 6-3 11-9 12-3 .5-6-1-7-4z"/></svg></div><div class="item-main"><div class="item-name">Pepper</div><div class="item-meta">Qty 2</div></div><div class="item-time urgent">1 day</div></div>
+            <div class="item-card"><div class="leaf-badge urgent"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12c6-8 12-8 16-8-1 6-3 11-9 12-3 .5-6-1-7-4z"/></svg></div><div class="item-main"><div class="item-name">Chicken breast</div><div class="item-meta">Qty 2</div></div><div class="item-time urgent">2 days</div></div>
+            <div class="item-card"><div class="leaf-badge soon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12c6-8 12-8 16-8-1 6-3 11-9 12-3 .5-6-1-7-4z"/></svg></div><div class="item-main"><div class="item-name">Egg</div><div class="item-meta">Qty 4</div></div><div class="item-time soon">4 days</div></div>
+            <div class="item-card"><div class="leaf-badge fresh"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12c6-8 12-8 16-8-1 6-3 11-9 12-3 .5-6-1-7-4z"/></svg></div><div class="item-main"><div class="item-name">Cheddar cheese</div><div class="item-meta">100g</div></div><div class="item-time fresh">7 days</div></div>
+            <div class="item-card"><div class="leaf-badge fresh"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 12c6-8 12-8 16-8-1 6-3 11-9 12-3 .5-6-1-7-4z"/></svg></div><div class="item-main"><div class="item-name">Spinach</div><div class="item-meta">200g</div></div><div class="item-time fresh">7 days</div></div>
+          </div>
+
+          <button class="add-item-btn" onclick="toast('Opens the add-item form')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--sage-deep)" stroke-width="2" style="width:15px;height:15px;"><path d="M12 5v14M5 12h14"/></svg>
+            Add item
+          </button>
+        </div>
+        <div class="bottom-nav" id="nav-pantry"></div>
+      </div>
+
+      <div class="toast" id="toast"></div>
+    </div>
+  </div>
+  <div class="caption">Click the quick-action cards, ingredient chips, and bottom nav to move through the flow.</div>
+</div>
+
+<script>
+  const navConfigs = {
+    home:   ['home','pantry','cook'],
+    cook:   ['home','pantry','cook'],
+    pantry: ['home','pantry','cook'],
+  };
+  const navIcons = {
+    home: '<path d="M4 11l8-7 8 7M6 10v9h12v-9"/>',
+    pantry: '<path d="M12 3c-4 3.2-6.5 7-6.5 10.2A6.5 6.5 0 0012 20a6.5 6.5 0 006.5-6.8C18.5 10 16 6.2 12 3z"/>',
+    cook: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
+  };
+  function buildNav(containerId, active){
+    const el = document.getElementById(containerId);
+    if(!el) return;
+    const order = ['home','pantry','fab','cook'];
+    el.innerHTML = order.map(key=>{
+      if(key==='fab'){
+        return `<div class="nav-fab" onclick="toast('Quick add')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg></div>`;
+      }
+      const isActive = key===active;
+      return `<div class="nav-item ${isActive?'active':''}" onclick="showScreen('${key}')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">${navIcons[key]}</svg>
+        <span>${key.charAt(0).toUpperCase()+key.slice(1)}</span>
+      </div>`;
+    }).join('');
+  }
+  buildNav('nav-home','home');
+  buildNav('nav-cook','cook');
+  buildNav('nav-pantry','pantry');
+
+  function showScreen(name){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById('screen-'+name).classList.add('active');
+  }
+
+  function toggleChip(el){
+    el.classList.toggle('selected');
+  }
+  function clearChips(){
+    document.querySelectorAll('.chip.selected').forEach(c=>c.classList.remove('selected'));
+    document.getElementById('cook-results').innerHTML = '';
+  }
+  function findRecipes(){
+    const selected = document.querySelectorAll('.chip.selected');
+    const results = document.getElementById('cook-results');
+    if(selected.length===0){
+      toast('Select at least one ingredient first');
+      return;
+    }
+    results.innerHTML = `
+      <div class="section"><div class="section-label">Recipes for you</div>
+        <div class="recipe-card" onclick="openRecipe('stirfry')">
+          <div class="recipe-thumb" style="background:var(--sage-pale)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg></div>
+          <div><div class="meal-name">Pepper &amp; Chicken Stir-fry</div><div class="meal-meta">25 min · Uses 3 expiring items</div>
+          <div class="tag-row"><span class="tag">Quick</span><span class="tag cost">£1.85 / meal</span></div></div>
+        </div>
+        <div class="recipe-card" onclick="openRecipe('stirfry')">
+          <div class="recipe-thumb" style="background:var(--gold-pale)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="8"/></svg></div>
+          <div><div class="meal-name">Spinach &amp; Egg Rice Bowl</div><div class="meal-meta">15 min · Uses 2 expiring items</div>
+          <div class="tag-row"><span class="tag">Vegetarian</span><span class="tag cost">£0.95 / meal</span></div></div>
+        </div>
+      </div>`;
+  }
+  function openRecipe(id){
+    showScreen('detail');
+  }
+  let toastTimer;
+  function toast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>t.classList.remove('show'), 2200);
+  }
+</script>
