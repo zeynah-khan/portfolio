@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spotify Redesign — Zeynah Khan</title>
+<title>Spotify Redesign · Zeynah Khan</title>
+<meta name="description" content="Spotify homepage redesign case study: clearer sections and simple controls so personalised content is easy to find.">
 <meta name="theme-color" content="#f7c4ec">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f7c4ec'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-size='20' fill='%23161414'%3Ezk%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,100 +16,213 @@
 
 <a class="skip-link" href="#content">Skip to content</a>
 
-<div class="case-top">
+<div class="case-top has-shot">
 <nav class="site-nav" aria-label="Main">
   <a href="../index.html">@zeynahkhan</a>
-  <div class="nav-links"><a href="../index.html#work">Work</a><a href="../index.html#about">About</a><a href="../index.html#contact">Contact</a></div>
+  <div class="nav-links"><a href="../index.html#about">About</a><a href="../index.html#work">Work</a><a href="../index.html#contact">Contact</a></div>
   <span class="nav-role">Open to work</span>
 </nav>
 
 <header class="wrap cs-header">
   <a href="../index.html#work" class="back-link">← Back to work</a>
-  <div class="cs-eyebrow">Conceptual project · Desktop</div>
-  <h1 class="cs-title">Redesigning Spotify's homepage — turning real complaints into a testable redesign</h1>
-  <p class="cs-dek">Spotify has some of the best personalisation technology in the industry, and a homepage that barely shows it off. This project asks why — and fixes it.</p>
+  <div class="cs-eyebrow">UX coursework · Desktop redesign concept</div>
+  <h1 class="mix cs-mix-title"><span class="b">Spotify </span><span class="s">redesign</span></h1>
+  <p class="cs-dek">Spotify's recommendations are among the best in streaming, but its homepage buries them. This redesign gives every section a clear heading and lets people pin, sort and rearrange their homepage around what they actually listen to.</p>
   <div class="cs-meta">
-    <div class="cs-meta-item"><div class="l">Role</div><div class="v">Business analysis, UX research, IxD, redesign</div></div>
-    <div class="cs-meta-item"><div class="l">Timeline</div><div class="v">University coursework, extended independently</div></div>
-    <div class="cs-meta-item"><div class="l">Tools</div><div class="v">Figma, competitor &amp; business model analysis</div></div>
+    <div class="cs-meta-item"><div class="l">Timeline</div><div class="v">University coursework, 2024</div></div>
+    <div class="cs-meta-item"><div class="l">My role</div><div class="v">Business analysis, UX evaluation and interaction design (solo)</div></div>
+    <div class="cs-meta-item"><div class="l">Methods</div><div class="v">Business Model Canvas, SWOT, UCD canvas, design evaluation</div></div>
+    <div class="cs-meta-item"><div class="l">Tools</div><div class="v">Figma</div></div>
   </div>
 </header>
 </div>
 
 <main id="content">
 
-<section class="wrap cs-section" style="border-top:none;">
-  <div class="cs-h2">The problem</div>
-  <div class="cs-body">
-    <p>Before designing anything, I ran a structured business analysis: a competitor comparison against Apple Music, Amazon Music, Deezer, and Last.fm, and a SWOT analysis of Spotify's position.</p>
-    <p>The comparison made Spotify's real edge clear — not price or audio quality, which competitors largely match, but personalisation. Its recommendation algorithms are consistently regarded as best-in-class. Which made it a genuine usability problem that the homepage undersells exactly that strength:</p>
-    <ul>
-      <li><strong>Recommendations are buried</strong> beneath generic content tiles, so users scroll past the thing Spotify does best.</li>
-      <li><strong>No visual hierarchy</strong> — sections aren't clearly labelled, so "made for you" and "trending in general" blur together.</li>
-      <li><strong>Zero customisation</strong> — every user sees the same layout, whether they're there for music, podcasts, or audiobooks.</li>
-    </ul>
-    <p>I pulled real frustrations from Spotify's community forums to ground this in actual complaints, not my own assumptions about what felt cluttered.</p>
-  </div>
-</section>
+<!-- HERO SHOT -->
+<div class="wrap">
+  <figure class="sp-hero-shot">
+    <iframe src="../prototypes/spotify-prototype.html?embed" title="Interactive prototype of the redesigned Spotify homepage"></iframe>
+  </figure>
+  <p class="cs-caption sp-hero-cap">Try it: open a section's ⋯ menu to pin it to the top, or switch tabs. <a href="../prototypes/spotify-prototype.html" target="_blank" rel="noopener">Open full screen ↗</a></p>
+</div>
 
-<section class="wrap cs-section">
-  <div class="cs-h2">Framing it with UCD tools</div>
-  <div class="cs-body">
-    <p>A User-Centred Design Canvas — problems, motives, fears, business goals, competitive advantage, candidate solutions — surfaced two things that shaped the redesign directly:</p>
-    <ul>
-      <li>The fear that mattered most wasn't privacy or cost — it was users feeling like the interface didn't adapt to them, despite Spotify clearly having the data to make it adapt.</li>
-      <li>The business case was straightforward: better surfacing of personalised content increases engagement and perceived subscription value, directly reinforcing Spotify's actual competitive advantage.</li>
-    </ul>
-  </div>
-</section>
+<!-- THE REDESIGN (solution first) -->
+<section class="wrap cs-section sp-solution" aria-labelledby="solution-title" style="border-top:none;">
+  <p class="cs-num">The redesign</p>
+  <h2 class="cs-h2" id="solution-title">Three changes, one goal</h2>
+  <div class="cs-body"><p>Make Spotify's best feature, personalisation, easy to find and easy to shape.</p></div>
 
-<section class="wrap cs-section">
-  <div class="cs-h2">The redesign</div>
-  <div class="cs-body">
-    <p>Three interaction design principles the UCD canvas pointed to directly:</p>
-    <p><strong>Visibility.</strong> Content is grouped under bold subheadings — "Made For You," "Your Playlists," "Based on Your Recent Listening" — so personalised content is immediately identifiable instead of blending into a generic scroll.</p>
-    <p><strong>User control.</strong> Every section gets a menu — Pin to top, Sort, Reorganise, Reset to default — so the homepage adapts to the individual instead of showing everyone the same layout. This was the single most important addition.</p>
-    <p><strong>Feedback.</strong> Pinning a section shows immediate confirmation — a "Pinned" flag, the section moving to the top, a toast — which is what makes a customisation feature feel trustworthy rather than uncertain.</p>
-  </div>
-
-  <div class="proto-embed">
-    <div class="proto-embed-head">
-      <div style="display:flex; align-items:center; gap:14px;">
-        <div class="term-dots"><span></span><span></span><span></span></div>
-        <div class="term-title">spotify-homepage-redesign</div>
-      </div>
-      <a class="proto-open" href="../prototypes/spotify-prototype.html" target="_blank">Open full screen ↗</a>
+  <div class="feature">
+    <div class="feature-text">
+      <span class="feature-num">01</span>
+      <h3>Sections that say what they are</h3>
+      <p>Content sits under bold headings like "Made For You" and "Based On Your Recent Listening", so personalised picks stand out from generic tiles. In Music, a Discover view gives new releases their own sections.</p>
     </div>
-    <iframe src="../prototypes/spotify-prototype.html" loading="lazy"></iframe>
+    <figure class="feature-img"><img src="../assets/images/spotify-wf-discover.png" width="693" height="494" alt="Wireframe: the Discover view in Music, with sections headed New Albums, Emerging Artists and Chart-Topping Tracks." loading="lazy"></figure>
   </div>
-  <div class="cs-caption">Click a section's ⋯ menu and pin it to the top — switch tabs to see Music, Podcasts, and Audiobooks each get their own relevant sections.</div>
+
+  <div class="feature flip">
+    <div class="feature-text">
+      <span class="feature-num">02</span>
+      <h3>Pin what matters to the top</h3>
+      <p>Every section has a menu. Choosing Pin moves that section to the top of the homepage, and a label confirms the change straight away, so the page starts with what you care about most.</p>
+    </div>
+    <figure class="feature-img"><img src="../assets/images/spotify-wf-pinned.png" width="693" height="493" alt="Wireframe: Your Playlists pinned to the top of the homepage, with a Pin label confirming the change." loading="lazy"></figure>
+  </div>
+
+  <div class="feature">
+    <div class="feature-text">
+      <span class="feature-num">03</span>
+      <h3>Sort, rearrange or reset</h3>
+      <p>Sort orders a section by recents, recently added or a custom order. Reorganise adds drag handles so sections can be moved up or down. Reset to Default undoes everything in one click.</p>
+    </div>
+    <figure class="feature-img"><img src="../assets/images/spotify-wf-reorganise.png" width="693" height="493" alt="Wireframe: a section with drag handles on both sides so it can be moved, and a Reorganise label at the top." loading="lazy"></figure>
+  </div>
 </section>
 
-<section class="wrap cs-section">
-  <div class="cs-h2">Conceptual &amp; mental models</div>
-  <div class="cs-body">
-    <p>Spotify's existing homepage works on a <strong>"stream" metaphor</strong> — a continuous scroll of tiles. Predictable, but no control and no clear structure.</p>
-    <p>The redesign shifts this to a <strong>magazine-style layout</strong> — clearly labelled sections a reader can scan or prioritise — paired with a <strong>customisable dashboard metaphor</strong> for the pin/reorder controls, similar to rearranging widgets on a home screen. Both are familiar mental models users already bring from other apps, reducing the learning curve for a homepage most people open dozens of times a week.</p>
+<!-- PROCESS OVERVIEW -->
+<section class="wrap cs-section" aria-labelledby="process-title">
+  <p class="cs-num">The process</p>
+  <h2 class="cs-h2" id="process-title">How I got there</h2>
+  <ol class="process-strip">
+    <li><span class="n">01</span><h3>Business analysis</h3><p>Business Model Canvas, SWOT and a User-Centred Design canvas</p></li>
+    <li><span class="n">02</span><h3>Evaluation</h3><p>The current homepage, checked against complaints on Spotify's forums</p></li>
+    <li><span class="n">03</span><h3>Models and principles</h3><p>Conceptual and mental models, and five interaction design principles</p></li>
+    <li><span class="n">04</span><h3>Wireframes</h3><p>The redesigned homepage and every section control</p></li>
+  </ol>
+</section>
+
+<!-- 01 BACKGROUND -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">01</p><h2 class="cs-h2">Background</h2></div>
+  <div class="split-body cs-body">
+    <p>Spotify had over 500 million users when I did this project. It competes with Apple Music, YouTube Music and Amazon Music, and its real edge is personalisation: recommendation algorithms that learn what each person listens to.</p>
+    <p>But the homepage, the first thing everyone sees, makes that edge hard to notice. I wanted to find out why, and what a homepage built around personalisation could look like.</p>
   </div>
 </section>
 
-<section class="wrap cs-section">
-  <div class="cs-h2">Secondary insight: profile personalisation</div>
-  <div class="cs-body">
-    <p>The initial business analysis actually explored a second opportunity before I settled on the homepage: Spotify's profiles are static and reveal almost nothing about a user's music identity, despite the app clearly knowing exactly what that identity is.</p>
-    <p>I didn't take this all the way to a full redesign — the homepage was the higher-impact usability problem, and I wanted to see it through properly rather than split focus — but it's worth including because it applies the same underlying insight (Spotify has the data; the interface doesn't show it) to a different surface.</p>
+<!-- 02 BUSINESS ANALYSIS -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">02</p><h2 class="cs-h2">Business analysis</h2></div>
+  <div class="split-body">
+    <div class="cs-body"><p>I started with where Spotify stands as a business, using a Business Model Canvas and a SWOT analysis.</p></div>
+    <div class="method-grid two">
+      <div class="method"><h3>Strengths</h3><ul><li>Advanced, personalised recommendation algorithms</li><li>A wide library of music, podcasts and audiobooks</li></ul></div>
+      <div class="method"><h3>Weaknesses</h3><ul><li>A cluttered homepage with inconsistent organisation</li><li>Little user control over what's shown</li></ul></div>
+      <div class="method"><h3>Opportunities</h3><ul><li>More engagement through customisation</li><li>Better accessibility to reach more users</li></ul></div>
+      <div class="method"><h3>Threats</h3><ul><li>Strong competition from Apple Music, YouTube Music and Amazon Music</li><li>Rising licensing costs</li></ul></div>
+    </div>
+    <div class="cs-body"><p>A User-Centred Design canvas then put the people at the centre. It showed two very different groups to design for, with fears that pull in opposite directions:</p></div>
+    <div class="method-grid">
+      <div class="method"><h3>Users</h3><ul><li>Casual listeners who want a simple platform</li><li>People who want advanced customisation</li></ul></div>
+      <div class="method"><h3>Motives</h3><ul><li>Quick access to relevant content</li><li>A personalised, enjoyable experience</li></ul></div>
+      <div class="method"><h3>Fears</h3><ul><li>Losing access to favourite content</li><li>Features that feel complex or overwhelming</li></ul></div>
+    </div>
+    <div class="callout"><p><strong>Value proposition:</strong> a fully customisable, user-focused homepage that makes discovery simpler while still serving personalised recommendations.</p></div>
   </div>
-  <div class="cs-img" style="max-width:380px; margin-left:auto; margin-right:auto; background:#0a0a0a;"><img src="../assets/images/spotify-profile-concept.png" alt="Profile concept mockup"></div>
-  <div class="cs-caption" style="text-align:center;">A quick concept exploration: a "music identity board" with Top 5 Artists and an explicit privacy toggle, addressing the main fear identified in research.</div>
 </section>
 
-<section class="wrap cs-section">
-  <div class="cs-h2">Reflection</div>
-  <div class="cs-body">
-    <p>The strongest part of this project is the business thinking underneath it — most "Spotify redesign" projects jump straight to visual opinions about what looks cluttered. This one is grounded in an actual competitive position, real user complaints, and a clear line from business goal to design decision.</p>
-    <p><strong>What I'd test next:</strong> whether the pin/reorder interaction is discoverable without a prompt pointing it out, whether "Reorganise" adds enough value to justify its complexity, and whether the magazine-style labels read as helpful structure or just more text to scan past.</p>
+<!-- 03 EVALUATION -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">03</p><h2 class="cs-h2">Evaluating the current homepage</h2></div>
+  <div class="split-body">
+    <div class="cs-body"><p>I reviewed the desktop homepage across the Music, Podcasts and Audiobooks tabs and compared it with complaints on the <a href="https://community.spotify.com/">Spotify Community forums</a>. Three problems kept coming up:</p></div>
+    <ol class="problem-list">
+      <li><h3>Poor organisation</h3><p>Recommendations are buried beneath unrelated tiles, so people scroll past the thing Spotify does best.</p></li>
+      <li><h3>Lack of clarity</h3><p>Small taglines like "Trending Now" don't guide you, so personal and generic content blur together.</p></li>
+      <li><h3>Limited customisation</h3><p>Everyone gets the same layout, whether they're there for music, podcasts or audiobooks.</p></li>
+    </ol>
+    <div class="cs-body"><p>Accessibility suffers too: small text and inconsistent content sizes make the page harder to use for people with low vision.</p></div>
+    <div class="q-cols">
+      <div><h3>Usability questions</h3><ul><li>Can people find personalised recommendations without scrolling too far?</li><li>Are the Music, Podcasts and Audiobooks tabs clear?</li><li>Is content grouped in a way that reduces cognitive load?</li></ul></div>
+      <div><h3>Experience questions</h3><ul><li>Does the homepage feel tailored to the person using it?</li><li>Are personalised recommendations visually prominent?</li><li>Is browsing enjoyable rather than frustrating?</li></ul></div>
+    </div>
   </div>
 </section>
+
+<!-- 04 GOAL -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">04</p><h2 class="cs-h2">Defining the goal</h2></div>
+  <div class="split-body">
+    <p class="hmw">How might Spotify's homepage show off its personalisation <em>without</em> overwhelming people who just want to press play?</p>
+    <ol class="goal-list">
+      <li><h3>Simplify navigation</h3><p>Group content under distinct subheadings to cut cognitive load.</p></li>
+      <li><h3>Make personalisation visible</h3><p>Put recommendations where people can't miss them, with a clear visual hierarchy.</p></li>
+      <li><h3>Give people control</h3><p>Let them pin, sort and rearrange sections, without making customisation compulsory.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 05 MODELS -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">05</p><h2 class="cs-h2">From a stream to a magazine</h2></div>
+  <div class="split-body">
+    <div class="cs-body"><p>I compared the conceptual models behind the current homepage with the ones I wanted to replace them with. Both new models are familiar from other apps, so the structure shouldn't need learning.</p></div>
+    <div class="compare-cards">
+      <div class="cc"><span class="cc-tag">Now</span><h3>Homepage as a stream</h3><ul class="pros"><li>Effortless scrolling and exploration</li><li>Simple, predictable navigation</li></ul><ul class="cons"><li>Irrelevant content mixed in with personal picks</li><li>No control over what comes first</li></ul></div>
+      <div class="cc"><span class="cc-tag">Now</span><h3>Tabs as categories</h3><ul class="pros"><li>Easy to separate music, podcasts and audiobooks</li></ul><ul class="cons"><li>Too broad, with no subcategories to help you discover anything new</li></ul></div>
+      <div class="cc new"><span class="cc-tag">Redesign</span><h3>A magazine layout</h3><ul class="pros"><li>Bold section headings make content easier to scan and find</li><li>Clearer organisation reduces cognitive load</li></ul><ul class="cons"><li>People may need a little time to adjust</li></ul></div>
+      <div class="cc new"><span class="cc-tag">Redesign</span><h3>A customisable dashboard</h3><ul class="pros"><li>Pinning sections works like arranging widgets on a phone</li><li>Relevant content comes first, which boosts engagement</li></ul><ul class="cons"><li>Some people may find customisation unnecessary</li></ul></div>
+    </div>
+    <p class="legend"><span class="plus">+</span> benefit <span class="minus">−</span> limitation</p>
+  </div>
+</section>
+
+<!-- 06 PRINCIPLES -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">06</p><h2 class="cs-h2">Design principles</h2></div>
+  <div class="split-body">
+    <div class="cs-body"><p>I checked the current design against five interaction design principles, and used each gap to shape the redesign.</p></div>
+    <table class="cs-table principles">
+      <thead><tr><th>Principle</th><th>Current design</th><th>Redesign</th></tr></thead>
+      <tbody>
+        <tr><td>Visibility</td><td>"Made For You" is buried in the stream, and taglines like "Trending Now" are too small to notice</td><td>Bold subheadings group content and make recommendations obvious</td></tr>
+        <tr><td>Feedback</td><td>Very little feedback when you interact</td><td>A clear confirmation when you pin, sort or reorganise a section</td></tr>
+        <tr><td>Consistency</td><td>Branding is consistent, but organisation differs between tabs</td><td>The same headings and section menu across every tab, keeping Spotify's branding</td></tr>
+        <tr><td>Constraints</td><td>No customisation at all</td><td>Customisation within limits: essential sections like "Made For You" can't be removed</td></tr>
+        <tr><td>Affordance</td><td>Few cues about what you can do</td><td>Clear icons, drag handles and distinct buttons for each action</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 07 DETAILS -->
+<section class="wrap cs-section cs-split full">
+  <div class="split-head"><p class="cs-num">07</p><h2 class="cs-h2">Interaction details</h2></div>
+  <div class="split-body">
+    <div class="cs-body"><p>Each control is a two-step action from the section menu, and the label in the corner always shows what's been applied.</p></div>
+    <div class="shot-pair">
+      <figure><img src="../assets/images/spotify-wf-sort-menu.png" width="693" height="493" alt="Wireframe: sort options for a section: Default, Recents, Recently Added and Custom Order." loading="lazy"><figcaption>Sort: choose an order…</figcaption></figure>
+      <figure><img src="../assets/images/spotify-wf-sorted.png" width="693" height="492" alt="Wireframe: the homepage with a Sort: Recents label showing the current sort order." loading="lazy"><figcaption>…and the label shows which sort is active.</figcaption></figure>
+    </div>
+    <div class="shot-pair">
+      <figure><img src="../assets/images/spotify-wf-reset-menu.png" width="693" height="493" alt="Wireframe: section menu open with Reset To Default highlighted." loading="lazy"><figcaption>Reset: choose Reset to Default…</figcaption></figure>
+      <figure><img src="../assets/images/spotify-wf-reset.png" width="693" height="492" alt="Wireframe: the homepage back in its default section order, with a Default label." loading="lazy"><figcaption>…and the homepage goes back to its original order.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 08 REFLECTION -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">08</p><h2 class="cs-h2">Reflection and next steps</h2></div>
+  <div class="split-body">
+    <div class="cs-body">
+      <p>The strongest part of this project is the thinking underneath it. The redesign comes from Spotify's business position and real user complaints, not just opinions about what looks cluttered.</p>
+      <p>Customisation has trade-offs. Some people won't want it, and a new structure takes time to get used to. That's why the default layout has to work well on its own, and why Reset to Default is always one click away.</p>
+    </div>
+    <ol class="goal-list next">
+      <li><h3>Test discoverability</h3><p>Do people find Pin and Reorganise without being shown where they are?</p></li>
+      <li><h3>Question Reorganise</h3><p>Does it add enough value to justify the extra complexity?</p></li>
+      <li><h3>Check the headings</h3><p>Do they read as helpful structure, or just more text to scan past?</p></li>
+      <li><h3>Go responsive</h3><p>Design how the layout adapts to tablet and mobile without losing clarity.</p></li>
+    </ol>
+  </div>
+</section>
+
+<nav class="wrap next-project" aria-label="Next project">
+  <a href="https://github.com/zeynah-khan/HormonePlus" target="_blank" rel="noopener"><span class="l">Next project · on GitHub</span><span class="t">Hormone+ ↗</span></a>
+</nav>
 
 </main>
 

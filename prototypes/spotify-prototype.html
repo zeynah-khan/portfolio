@@ -187,6 +187,13 @@
   }
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
   .caption{ max-width:1040px; text-align:center; font-size:12px; color:#8A8368; line-height:1.5; }
+
+  /* embed mode (?embed): just the app, scaled to fit the frame */
+  .embed, .embed body{ overflow:hidden; background:var(--bg); }
+  .embed body{ display:block; padding:0; }
+  .embed .rig{ display:block; }
+  .embed .rig-label, .embed .caption{ display:none; }
+  .embed .app{ transform-origin:0 0; border:0; border-radius:0; box-shadow:none; }
 </style>
 
 <div class="rig">
@@ -337,6 +344,7 @@
     openMenu = null;
     toast(pinned[id] ? 'Pinned to top' : 'Unpinned');
     render();
+    if (pinned[id]) document.getElementById('content').scrollTo({ top:0, behavior:'smooth' });
   }
 
   function toggleMenu(id, ev){
@@ -404,4 +412,12 @@
   }
 
   render();
+
+  if (new URLSearchParams(location.search).has('embed')) {
+    document.documentElement.classList.add('embed');
+    const app = document.querySelector('.app');
+    const fit = () => { app.style.transform = 'scale(' + (window.innerWidth / 1040) + ')'; };
+    window.addEventListener('resize', fit);
+    fit();
+  }
 </script>
