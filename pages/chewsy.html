@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chewsy — Zeynah Khan</title>
+<title>Chewsy · Zeynah Khan</title>
+<meta name="description" content="Chewsy case study: designing a meal planner that helps students waste less food by cooking from what's already in the fridge.">
 <meta name="theme-color" content="#f7c4ec">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f7c4ec'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Georgia,serif' font-size='20' fill='%23161414'%3Ezk%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,85 +12,230 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&display=swap">
 <link rel="stylesheet" href="../styles.css">
 </head>
-<body class="case">
+<body class="case chewsy-page">
 
 <a class="skip-link" href="#content">Skip to content</a>
 
-<div class="case-top">
+<div class="case-top has-shot">
 <nav class="site-nav" aria-label="Main">
   <a href="../index.html">@zeynahkhan</a>
-  <div class="nav-links"><a href="../index.html#work">Work</a><a href="../index.html#about">About</a><a href="../index.html#contact">Contact</a></div>
+  <div class="nav-links"><a href="../index.html#about">About</a><a href="../index.html#work">Work</a><a href="../index.html#contact">Contact</a></div>
   <span class="nav-role">Open to work</span>
 </nav>
 
 <header class="wrap cs-header">
   <a href="../index.html#work" class="back-link">← Back to work</a>
-  <div class="cs-eyebrow">University project · Mobile app</div>
-  <h1 class="cs-title">Chewsy — helping students stop wasting food, and money</h1>
-  <p class="cs-dek">A smart meal planner that starts from what's already in your fridge, not a shopping list — built around a real, well-researched problem rather than a nice-to-have feature.</p>
+  <div class="cs-eyebrow">UX coursework · Mobile app</div>
+  <h1 class="mix cs-mix-title"><span class="b">Chewsy </span><span class="s">meal planner</span></h1>
+  <p class="cs-dek">Students waste food because they shop without a plan, lose track of what's going off and don't know what to cook with what's left. Chewsy flips the usual meal planner around: not "what do you want to cook?" but "what have you already got?"</p>
   <div class="cs-meta">
-    <div class="cs-meta-item"><div class="l">Role</div><div class="v">UX research, IA, wireframing, UI design, prototyping</div></div>
-    <div class="cs-meta-item"><div class="l">Timeline</div><div class="v">University coursework, extended independently</div></div>
-    <div class="cs-meta-item"><div class="l">Tools</div><div class="v">Figma, secondary research, usability testing</div></div>
+    <div class="cs-meta-item"><div class="l">Timeline</div><div class="v">User-Centred Design module, 2025</div></div>
+    <div class="cs-meta-item"><div class="l">My role</div><div class="v">UX research, information architecture, wireframing and UI design (solo)</div></div>
+    <div class="cs-meta-item"><div class="l">Methods</div><div class="v">Secondary research, empathy and affinity mapping, MoSCoW</div></div>
+    <div class="cs-meta-item"><div class="l">Tools</div><div class="v">Figma</div></div>
   </div>
 </header>
 </div>
 
 <main id="content">
 
-<section class="wrap cs-section" style="border-top:none;">
-  <div class="cs-h2">The problem</div>
-  <div class="cs-body">
-    <p>UK households waste around 6 million tonnes of food a year, and roughly three-quarters of that was edible (<a href="https://www.wrap.ngo/resources/report/household-food-and-drink-waste-uk-2022">WRAP, 2022</a>). Students are a big part of this — unpredictable schedules, limited cooking confidence, and poor visibility into what's already in the fridge all combine to make waste the default outcome.</p>
-    <p>Secondary research (Food Standards Agency, Zero Waste Scotland) put real numbers behind it: around two-thirds of students reported food in their fridge past its use-by date, and the average student loses roughly £273 a year to avoidable waste.</p>
-    <p>Existing apps like Mealime and Tasty solve a different problem — they assume you're shopping <em>for</em> a recipe, not cooking <em>from</em> what you've already got. Neither tracks expiry dates or budgets for students specifically. That gap became Chewsy's reason to exist.</p>
+<!-- HERO SHOT -->
+<div class="wrap">
+  <figure class="ch-hero-shot">
+    <img src="../assets/images/wireframe-home.png" width="402" height="874" alt="Chewsy Home screen: a reminder that 3 items need using up soon, shortcuts to What to Cook, Pantry and Budget, and an Expiring soon list.">
+  </figure>
+</div>
+
+<!-- THE SOLUTION -->
+<section class="wrap cs-section" aria-labelledby="solution-title" style="border-top:none;">
+  <p class="cs-num">The solution</p>
+  <h2 class="cs-h2" id="solution-title">Cook from your fridge, not a shopping list</h2>
+  <div class="cs-body"><p>Chewsy is built around one idea: use up what you already have before it goes off.</p></div>
+
+  <div class="feature">
+    <div class="feature-text">
+      <span class="feature-num">01</span>
+      <h3>Start from what you have</h3>
+      <p>"What can I cook?" starts with the ingredients already in your kitchen. Tap what you've got, narrow it down by time, diet or budget, and get recipes that use them up. Each result shows how many expiring items it uses and what it costs per meal.</p>
+    </div>
+    <figure class="feature-img phone"><img src="../assets/images/wireframe-cook.png" width="402" height="1055" alt="Chewsy What can I cook? screen: selected ingredient chips, filters for duration, dietary needs and budget, and recipe results showing expiring items used and cost per meal." loading="lazy"></figure>
+  </div>
+
+  <div class="feature flip">
+    <div class="feature-text">
+      <span class="feature-num">02</span>
+      <h3>See what's about to go off</h3>
+      <p>The pantry tracker works like the fridge you already manage. Items are sorted by expiry date and colour-coded as use now, use soon or still fresh, so checking what needs eating takes seconds.</p>
+    </div>
+    <figure class="feature-img phone"><img src="../assets/images/wireframe-pantry.png" width="402" height="874" alt="Chewsy Pantry tracker: items sorted by expiry with coloured days-left labels." loading="lazy"></figure>
+  </div>
+
+  <div class="feature">
+    <div class="feature-text">
+      <span class="feature-num">03</span>
+      <h3>Know what's in the pantry, and what it costs</h3>
+      <p>Each recipe tags the ingredients you already have and shows the cost per meal, so you can see at a glance how much you need to buy and how much you'll spend.</p>
+    </div>
+    <figure class="feature-img phone"><img src="../assets/images/wireframe-recipe-detail.png" width="402" height="916" alt="Chewsy Recipe detail for a pepper and chicken stir-fry, with prep and cook time, cost per meal and ingredients tagged In pantry." loading="lazy"></figure>
   </div>
 </section>
 
-<section class="wrap cs-section">
-  <div class="cs-h2">Who I designed for</div>
-  <div class="cs-body">
-    <p>I built a persona from patterns across the research and early empathy mapping, to keep decisions anchored to a real kind of user rather than an abstract "student."</p>
-  </div>
-  <div class="callout">
-    <p><strong>Zara, 20</strong> — second-year student in shared accommodation with limited kitchen space. Juggling coursework, a part-time job, and a full social life. Grocery shops are quick and unplanned. Goals: stop throwing money away on unused food, spend less mental energy figuring out what to cook. Her key frustration, captured in the empathy map: <em>"I have lots of ingredients but I'm not sure what to make with them."</em></p>
+<!-- PROCESS OVERVIEW -->
+<section class="wrap cs-section" aria-labelledby="process-title">
+  <p class="cs-num">The process</p>
+  <h2 class="cs-h2" id="process-title">How I got there</h2>
+  <ol class="process-strip">
+    <li><span class="n">01</span><h3>Secondary research</h3><p>Student food waste studies and a look at existing recipe apps</p></li>
+    <li><span class="n">02</span><h3>Empathy and affinity mapping</h3><p>A persona, an empathy map and five research themes</p></li>
+    <li><span class="n">03</span><h3>Prioritisation</h3><p>MoSCoW, plus a map of my riskiest assumptions</p></li>
+    <li><span class="n">04</span><h3>Wireframes to high fidelity</h3><p>Core flows wireframed for the coursework, then polished in Figma</p></li>
+  </ol>
+</section>
+
+<!-- 01 BACKGROUND -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">01</p><h2 class="cs-h2">Background</h2></div>
+  <div class="split-body">
+    <div class="stat-row three">
+      <div class="stat"><span class="num">65<small>%</small></span><span class="label">of students in a Food Standards Agency study had food past its use-by date in the fridge</span></div>
+      <div class="stat"><span class="num">£273</span><span class="label">a year lost to avoidable food waste, per student</span></div>
+      <div class="stat"><span class="num">9.5<small>m</small></span><span class="label">tonnes of food wasted in the UK each year</span></div>
+    </div>
+    <div class="cs-body">
+      <p>Food waste is a growing problem in the UK, and students add to it. In a <a href="https://www.food.gov.uk/research/food-behaviours-in-the-uk-student-population-executive-summary">Food Standards Agency study</a>, around two-thirds of students had food past its use-by date in the fridge, and 64% had left leftovers for more than two days.</p>
+      <p>The research pointed to a few causes: buying perishables without a plan to use them, not knowing how to cook with random ingredients or leftovers, uncertainty about portions and storage, and busy, unpredictable schedules. Every bit of wasted food is money out of an already tight budget.</p>
+    </div>
   </div>
 </section>
 
-<section class="wrap cs-section">
-  <div class="cs-h2">The interface</div>
-  <div class="cs-body">
-    <p>Home, ingredient input, pantry tracker, and recipe detail — the core flow, taken to full visual design.</p>
-  </div>
-  <div class="cs-img-row">
-    <img src="../assets/images/wireframe-home.png" alt="Chewsy Home screen">
-    <img src="../assets/images/wireframe-cook.png" alt="Chewsy What Can I Cook screen">
-    <img src="../assets/images/wireframe-pantry.png" alt="Chewsy Pantry Tracker screen">
-    <img src="../assets/images/wireframe-recipe-detail.png" alt="Chewsy Recipe Detail screen">
-  </div>
-  <div style="text-align: center;" class="cs-caption">Home, "What Can I Cook?", Pantry Tracker, and Recipe Detail.</div>
-</section>
-
-<section class="wrap cs-section">
-  <div class="cs-h2">Design decisions</div>
-  <div class="cs-body">
-    <p>The interface is built around a <strong>fridge-as-inventory mental model</strong> — the pantry tracker mirrors how students already think about their fridge, rather than introducing an unfamiliar system.</p>
-    <ul>
-      <li><strong>Colour-coded urgency</strong> (fresh / soon / use now) turns "check your fridge" from a task into something scannable at a glance.</li>
-      <li><strong>Ingredient-first search</strong>, not recipe-first — the app starts from what you have, directly answering the most common frustration in research.</li>
-      <li><strong>"In your pantry" tags</strong> on recipe ingredients make the connection between features visible rather than assumed.</li>
-    </ul>
+<!-- 02 EXISTING APPS -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">02</p><h2 class="cs-h2">Existing apps</h2></div>
+  <div class="split-body">
+    <div class="cs-body"><p>Popular apps like Mealime and Tasty help people cook, but they're built around full recipes and meal plans that usually mean buying new ingredients. Neither tracks expiry dates, suggests uses for leftovers or budgets with students in mind.</p></div>
+    <table class="cs-table compare">
+      <thead><tr><th>Feature</th><th>Chewsy</th><th>Mealime</th><th>Tasty</th></tr></thead>
+      <tbody>
+        <tr><td>Starts from ingredients you already have</td><td class="yes">Yes</td><td>No</td><td class="yes">Yes</td></tr>
+        <tr><td>Expiry date tracking</td><td class="yes">Yes</td><td>No</td><td>No</td></tr>
+        <tr><td>Ideas for using up leftovers</td><td class="yes">Yes</td><td>No</td><td>No</td></tr>
+        <tr><td>Student-focused budgeting</td><td class="yes">Yes</td><td>No</td><td>No</td></tr>
+        <tr><td>Simple, low-effort design</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
-<section class="wrap cs-section">
-  <div class="cs-h2">Testing &amp; reflection</div>
-  <div class="cs-body">
-    <p>After handing the coursework in, I ran short, informal sessions with a few students on the core "What can I cook?" flow and the pantry tracker, checking whether the ingredient-selection interaction was obvious without explanation and whether the expiry colour-coding made sense without the legend.</p>
-    <p>I didn't formally record those sessions, so the next step is structured testing: set tasks with clear success criteria, notes on where people hesitate, and a round of design changes based on what comes up.</p>
-    <p>The CS + UX combination is the throughline here — this is one of the few case studies in this portfolio where the plan is to eventually build the ingredient-to-recipe flow as working code, not just a polished prototype.</p>
+<!-- 03 UNDERSTANDING STUDENTS -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">03</p><h2 class="cs-h2">Understanding students</h2></div>
+  <div class="split-body">
+    <div class="cs-body"><p>I built an empathy map around a persona, Zara, to keep every decision tied to a real kind of student rather than an abstract "user".</p></div>
+    <div class="callout"><p><strong>Zara</strong> is a second-year student in shared accommodation with limited kitchen space. She juggles her studies, a part-time job and a social life, buys groceries without a plan and eats the same meals on repeat. Her fridge is full of random ingredients, and some of them always go off.</p></div>
+    <div class="method-grid two">
+      <div class="method"><h3>Says</h3><ul><li>"I don't know what to cook with this stuff."</li><li>"I forgot I had this in the fridge."</li><li>"Takeout is easier."</li></ul></div>
+      <div class="method"><h3>Does</h3><ul><li>Buys groceries without a plan</li><li>Eats the same meals on repeat</li><li>Throws away food that goes off</li><li>Sometimes skips meals</li></ul></div>
+      <div class="method"><h3>Thinks and feels</h3><ul><li>Frustrated at wasting money on spoiled food</li><li>Guilty about the waste</li><li>Good when a meal is cheap and tasty</li></ul></div>
+      <div class="method"><h3>Hears</h3><ul><li>Parents reminding her to save money</li><li>Flatmates suggesting takeaways</li><li>TikTok showing quick recipe ideas</li></ul></div>
+    </div>
+    <div class="cs-body"><p>I then grouped the research into five themes with an affinity diagram: meal planning, budgeting, food waste habits, lifestyle and motivation, and gaps in existing apps. Each insight became something the design had to do:</p></div>
+    <table class="cs-table">
+      <thead><tr><th>What the research showed</th><th>What the design needs to do</th></tr></thead>
+      <tbody>
+        <tr><td>Students waste food because they don't plan meals or keep track of expiry dates</td><td>Track ingredients and flag food before it goes off</td></tr>
+        <tr><td>Students often don't know what to cook with what they have</td><td>Suggest recipes from the ingredients they already own</td></tr>
+        <tr><td>Leftovers get thrown away for lack of ideas</td><td>Help turn leftovers into new meals</td></tr>
+        <tr><td>Budget is a constant worry</td><td>Show cost per meal and favour affordable recipes</td></tr>
+        <tr><td>Many students are too busy to plan ahead</td><td>Be fast and simple, with almost no setup</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
+
+<!-- 04 GOAL -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">04</p><h2 class="cs-h2">Defining the goal</h2></div>
+  <div class="split-body">
+    <p class="hmw">How might we help students cook with what's <em>already</em> in the fridge, before it goes off?</p>
+    <ol class="goal-list">
+      <li><h3>Track what's in the kitchen</h3><p>Keep a simple record of ingredients and flag food before it expires.</p></li>
+      <li><h3>Suggest meals from what's there</h3><p>Recommend recipes based on the ingredients students already own, including leftovers.</p></li>
+      <li><h3>Keep costs visible</h3><p>Show cost per meal and favour budget-friendly recipes.</p></li>
+      <li><h3>Stay quick and simple</h3><p>Fit around busy schedules, with as little setup as possible.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 05 PRIORITIES -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">05</p><h2 class="cs-h2">Deciding what to build</h2></div>
+  <div class="split-body">
+    <div class="cs-body"><p>I prioritised features with MoSCoW, keeping the first version focused on the core problem: using up what you already have before it goes off.</p></div>
+    <div class="moscow">
+      <div><h3>Must have</h3><ul><li>Recipe suggestions from the ingredients you enter</li><li>Expiry tracking with reminders</li><li>A leftovers mode</li><li>A simple, mobile-first interface</li></ul></div>
+      <div><h3>Should have</h3><ul><li>Cost per meal and budgeting tips</li><li>Saved favourite recipes</li><li>Quick filters, like vegetarian or under 15 minutes</li><li>A like or dislike prompt after meals</li></ul></div>
+      <div><h3>Could have</h3><ul><li>Barcode scanning</li><li>Grocery lists shared with flatmates</li><li>Calendar reminders for planned meals</li><li>Light and dark mode</li></ul></div>
+      <div><h3>Won't have (for now)</h3><ul><li>Full meal-prep plans like Mealime</li><li>Macro and nutrition tracking</li><li>Smart fridge integration</li><li>Built-in social sharing</li></ul></div>
+    </div>
+    <div class="callout"><p><strong>The riskiest assumptions.</strong> Mapping my assumptions by risk showed the biggest unknowns: will students keep their pantry up to date, will they trust the recipe suggestions, and will they bother typing food in by hand? That's why adding an item takes as few steps as possible, and why a packaging scanner is high on my list of next steps.</p></div>
+  </div>
+</section>
+
+<!-- 06 PRINCIPLES -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">06</p><h2 class="cs-h2">Design principles</h2></div>
+  <div class="split-body">
+    <div class="cs-body"><p>Chewsy follows a <strong>fridge-as-inventory</strong> mental model. You see what's stored, check its condition and clear out what's expired, just like in your real kitchen, so there's very little to learn. Three usability principles shaped the details:</p></div>
+    <div class="method-grid">
+      <div class="method"><h3>Match the real world</h3><p>Ingredient tracking and expiry follow how people already manage their fridge.</p></div>
+      <div class="method"><h3>Keep it minimal</h3><p>Clean layouts, short labels, and colour and icons that carry meaning, so nothing feels cluttered.</p></div>
+      <div class="method"><h3>Prevent errors</h3><p>Dropdowns for quantity units and automatic sorting by expiry stop mistakes before they happen.</p></div>
+    </div>
+    <div class="cs-body"><p>The interface also cuts down mental effort by sorting and suggesting for you. It keeps people motivated by showing what's expiring alongside savings and suggestions. And it stays flexible, so you can type items in or pick from suggestions.</p></div>
+  </div>
+</section>
+
+<!-- 07 WIREFRAMES TO HIGH FIDELITY -->
+<section class="wrap cs-section cs-split full">
+  <div class="split-head"><p class="cs-num">07</p><h2 class="cs-h2">From wireframes to high fidelity</h2></div>
+  <div class="split-body">
+    <div class="cs-body"><p>For the coursework, I wireframed the four core screens: Home, "What can I cook?", Pantry tracker and Recipe. Navigation and task flows were kept to as few steps as possible.</p></div>
+    <div class="wire-row three">
+      <figure><img src="../assets/images/wireframe-home.png" width="320" height="568" alt="Coursework wireframe: Home screen with quick actions for What to Cook, Budget Tracker and Pantry Tracker, an Expiring Soon list and recent meals." loading="lazy"><figcaption>Home</figcaption></figure>
+      <figure><img src="../assets/images/wireframe-cook.png" width="320" height="568" alt="Coursework wireframe: What Can I Cook? screen where you enter ingredients and filter by duration, dietary needs and budget." loading="lazy"><figcaption>What can I cook?</figcaption></figure>
+      <figure><img src="../assets/images/wireframe-pantry.png" width="320" height="568" alt="Coursework wireframe: Pantry Tracker listing items with quantity and days until expiry, marked use now, use soon or still fresh." loading="lazy"><figcaption>Pantry tracker</figcaption></figure>
+      <figure><img src="../assets/images/wireframe-recipe-detail.png" width="320" height="568" alt="Coursework wireframe: Recipe screen detailing the ingredients used for the dish, the cost per portion and the steps to make it." loading="lazy"><figcaption>Recipe</figcaption></figure>
+    </div>
+    <p class="cs-caption">Chewsy wireframes.</p>
+    <ol class="goal-list two-col">
+      <li><h3>Home leads with urgency</h3><p>It opens with how many items need using up soon, before anything else.</p></li>
+      <li><h3>Results show their value</h3><p>Each recipe shows how many expiring items it uses and its cost per meal.</p></li>
+      <li><h3>A new recipe screen</h3><p>Ingredients you already have are tagged "In pantry", with short, numbered steps.</p></li>
+      <li><h3>A calm visual style</h3><p>A deeper green, consistent line icons and clearer days-left labels.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 08 TESTING AND NEXT STEPS -->
+<section class="wrap cs-section cs-split">
+  <div class="split-head"><p class="cs-num">08</p><h2 class="cs-h2">Testing and next steps</h2></div>
+  <div class="split-body">
+    <div class="cs-body">
+      <p>The coursework deadline came before I could run usability testing. After handing it in, I ran short, informal sessions with a few students on the "What can I cook?" flow and the pantry tracker. I checked whether picking ingredients was obvious without explanation and whether the expiry colours made sense without the legend. I didn't record those sessions, so I'm not reporting results from them.</p>
+      <p>The biggest lesson was how much structured user-centred design methods kept the project focused. The empathy map, affinity diagram and prioritisation made it just as clear what to leave out as what to build.</p>
+    </div>
+    <ol class="goal-list next">
+      <li><h3>Run structured testing</h3><p>Set tasks with clear success criteria, aimed at the riskiest assumptions.</p></li>
+      <li><h3>Finish the budget tracker</h3><p>It's part of the plan but wasn't fully designed.</p></li>
+      <li><h3>Add a packaging scanner</h3><p>Read the item name, quantity and expiry date from a photo, so adding food takes seconds.</p></li>
+      <li><h3>Build a shared pantry</h3><p>Let flatmates manage one pantry together to cut duplicate buying.</p></li>
+    </ol>
+  </div>
+</section>
+
+<nav class="wrap next-project" aria-label="Next project">
+  <a href="spotify-redesign.html"><span class="l">Next project</span><span class="t">Spotify redesign →</span></a>
+</nav>
 
 </main>
 
